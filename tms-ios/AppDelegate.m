@@ -68,7 +68,7 @@ static void updateEnabled(CFNotificationCenterRef center, void* observer, CFStri
     // 百度地图
     _mapManager = [[BMKMapManager alloc] init];
     
-    BOOL ret = [_mapManager start:@"1h8LhT31kmaeNZnDXXytPVjB11C1NNPt"  generalDelegate:self];
+    BOOL ret = [_mapManager start:@"eNPuaU1Oz0Dn4WXzjrb4We7buTjymkgn"  generalDelegate:self];
     if (!ret) {
         NSLog(@"百度地图加载失败！");
     }else {

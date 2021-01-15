@@ -49,7 +49,7 @@
 // 是否进入过主页（如果第一次进入，延长检查定位权限时间）
 #define kUserDefaults_EnterTheHomePage @"EnterTheHomePage"
 
-#define kApi @"https://www.fengyee.com/microservice/"
+#define kApi @"https://sit.fengyee.com/microservice/"
 
 /*--------- 屏幕尺寸 ---------*/
 #define ScreenHeight [UIScreen mainScreen] .bounds.size.height
