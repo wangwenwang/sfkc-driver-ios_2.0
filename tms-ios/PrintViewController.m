@@ -46,6 +46,12 @@
     [self connDevice];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [self.bluetooth close];
+}
+
 
 #pragma mark - 功能函数
 
@@ -409,7 +415,7 @@
 
 - (IBAction)print{
     
-    if(!_arr.count){
+    if(!_arr.count && !_orderList.count){
         
         [Tools showAlert:self.view andTitle:@"未找到订单"];
         return;
@@ -597,12 +603,14 @@
         NSLog(@"请求失败---%@", error);
     }];
     
-    for(int i = 0; i < _arr.count; i++){
+    for(int j = 0; j < _orderList.count; j++){
+    NSArray *dic = _orderList[j][@"p_tags"];
+    for(int i = 0; i < dic.count; i++){
+        
         NSLog(@"%@", [NSString stringWithFormat:@"打印开始: %d", i]);
         PrintimageAviationLabelViewController *vc = [[PrintimageAviationLabelViewController alloc] init];
-        vc.productNo_s = _arr[i][@"productNo"];
-        vc.dic = _dic;
-        NSLog(@"%@", _dic);
+        vc.productNo_s = dic[i][@"productNo"];
+        vc.dic = _orderList[j];
         UIView *view = vc.view;
         view = vc.container;
 //        [self presentViewController:vc animated:YES completion:nil];
@@ -662,6 +670,9 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     }
+    }
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [Tools showAlert:self.view.window andTitle:@"打印完成"];
 }
 
 
