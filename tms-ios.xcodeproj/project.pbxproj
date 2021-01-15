@@ -29,6 +29,8 @@
 		3B6A4759216B7C430062908E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6A4758216B7BE40062908E /* Reachability.m */; };
 		3B6A761E218025FC00C55026 /* LM_alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6A761D2180259D00C55026 /* LM_alert.m */; };
 		3B859A80241F8DEB007BFFC1 /* IB_Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B859A7F241F8DEB007BFFC1 /* IB_Border.m */; };
+		3BACA3A125B1574C00D443AD /* PrintimageAviationLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BACA39E25B1574C00D443AD /* PrintimageAviationLabelViewController.xib */; };
+		3BACA3A225B1574C00D443AD /* PrintimageAviationLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BACA39F25B1574C00D443AD /* PrintimageAviationLabelViewController.m */; };
 		3BB695BA24E6376800AA0656 /* StyleDIY.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB695A824E6376800AA0656 /* StyleDIY.m */; };
 		3BB695BB24E6376800AA0656 /* LBXAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB695AB24E6376800AA0656 /* LBXAlertAction.m */; };
 		3BB695BC24E6376800AA0656 /* UIWindow+LBXHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB695B124E6376800AA0656 /* UIWindow+LBXHierarchy.m */; };
@@ -130,6 +132,9 @@
 		3B859A7E241F8DEB007BFFC1 /* IB_Border.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IB_Border.h; sourceTree = "<group>"; };
 		3B859A7F241F8DEB007BFFC1 /* IB_Border.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IB_Border.m; sourceTree = "<group>"; };
 		3BA1E4BE24E7C44E009E6B57 /* scan_code_success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scan_code_success.wav; sourceTree = "<group>"; };
+		3BACA39E25B1574C00D443AD /* PrintimageAviationLabelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrintimageAviationLabelViewController.xib; sourceTree = "<group>"; };
+		3BACA39F25B1574C00D443AD /* PrintimageAviationLabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintimageAviationLabelViewController.m; sourceTree = "<group>"; };
+		3BACA3A025B1574C00D443AD /* PrintimageAviationLabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintimageAviationLabelViewController.h; sourceTree = "<group>"; };
 		3BB695A824E6376800AA0656 /* StyleDIY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleDIY.m; sourceTree = "<group>"; };
 		3BB695A924E6376800AA0656 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		3BB695AB24E6376800AA0656 /* LBXAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXAlertAction.m; sourceTree = "<group>"; };
@@ -432,6 +437,9 @@
 				3BEAA82B244A943400C212E7 /* PreImageViewController.h */,
 				3BEAA82C244A943400C212E7 /* PreImageViewController.m */,
 				3BEAA82D244A943400C212E7 /* PreImageViewController.xib */,
+				3BACA3A025B1574C00D443AD /* PrintimageAviationLabelViewController.h */,
+				3BACA39F25B1574C00D443AD /* PrintimageAviationLabelViewController.m */,
+				3BACA39E25B1574C00D443AD /* PrintimageAviationLabelViewController.xib */,
 				3B3A0D97241F5E6900E5CDA1 /* PrintTableViewCell.h */,
 				3B3A0D98241F5E6900E5CDA1 /* PrintTableViewCell.m */,
 				3B3A0D99241F5E6900E5CDA1 /* PrintTableViewCell.xib */,
@@ -679,6 +687,7 @@
 				3BBB4298241E587E00D71DAA /* control.xml in Resources */,
 				3BBB4129241E489800D71DAA /* Main.storyboard in Resources */,
 				F0385BED25AFF0C00071F3EF /* dist.zip in Resources */,
+				3BACA3A125B1574C00D443AD /* PrintimageAviationLabelViewController.xib in Resources */,
 				3B3A0D96241F587D00E5CDA1 /* PrintViewController.xib in Resources */,
 				3B142E81244B06C80053D5FD /* PrintimageTwoInOneController.xib in Resources */,
 				3B3A0D9B241F5E6900E5CDA1 /* PrintTableViewCell.xib in Resources */,
@@ -774,6 +783,7 @@
 				3B20878B219529DF000C36A9 /* CheckPathService.m in Sources */,
 				3BB695BC24E6376800AA0656 /* UIWindow+LBXHierarchy.m in Sources */,
 				F0385BFB25B01E7A0071F3EF /* NSData+CommonCrypto.m in Sources */,
+				3BACA3A225B1574C00D443AD /* PrintimageAviationLabelViewController.m in Sources */,
 				3B142E82244B06C80053D5FD /* PrintimageTwoOtherController.m in Sources */,
 				3BB695C024E6376800AA0656 /* DIYScanViewController.m in Sources */,
 				F0385BFC25B01E7A0071F3EF /* NSData+Base64.m in Sources */,

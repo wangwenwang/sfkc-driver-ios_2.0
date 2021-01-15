@@ -17,6 +17,7 @@
 #import "UIImage+fixOrientation.h"
 #import <AFNetworking.h>
 #import "AESConvertHelper.h"
+#import "PrintimageAviationLabelViewController.h"
 
 @interface PrintViewController ()
 
@@ -26,6 +27,7 @@
 @property (strong, nonatomic) CBPeripheral* peripheral;
 @property (strong, nonatomic) NSMutableArray* listDevices;
 @property (strong, nonatomic) NSMutableString* listDeviceInfo;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *twoInOneBtnWidth;
 
 @end
 
@@ -38,7 +40,9 @@
     self.listDeviceInfo = [NSMutableString stringWithString:@""];
     self.listDevices = [NSMutableArray array];
     self.bluetooth = [[Bluetooth alloc]init];
-    
+    if(_isAviationLabel){
+        _twoInOneBtnWidth.constant = 0;
+    }
     [self connDevice];
 }
 
@@ -126,20 +130,20 @@
 }
 
 
-- (IBAction)printtwokonggang{
+- (void)printtwokonggang{
     
-    NSString *url = [NSString stringWithFormat:@"%@%@", kApi, @"kc-transport/tmsApp/updatePrintCount"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", kApi, @"updatePrintCount.do"];
 
       AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
       manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
 
        NSString *params = [NSString stringWithFormat:@"{\"omsNo\":\"%@\"}", _dic[@"omsNo"]];
        NSString * aesParamString = [AESConvertHelper convertToAesWithParam:params];
-       NSDictionary *parameters = @{@"param" : aesParamString};
+       NSDictionary *parameters = @{@"params" : aesParamString};
 
        NSLog(@"上传位置点参数：%@", parameters);
       
-      NSLog(@"接口%@请求【上传打印次数】参数：%@", url, params);
+      NSLog(@"接口%@请求【获取配载单轨迹】参数：%@", url, params);
       
       [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
           nil;
@@ -249,9 +253,9 @@
     }
 }
 
-- (IBAction)printtwoother{
+- (void)printtwoother{
     
-     NSString *url = [NSString stringWithFormat:@"%@%@", kApi, @"kc-transport/tmsApp/updatePrintCount"];
+     NSString *url = [NSString stringWithFormat:@"%@%@", kApi, @"updatePrintCount.do"];
 
        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
@@ -259,11 +263,11 @@
         NSString *params = [NSString stringWithFormat:@"{\"omsNo\":\"%@\"}", _dic[@"omsNo"]];
         
         NSString * aesParamString = [AESConvertHelper convertToAesWithParam:params];
-        NSDictionary *parameters = @{@"param" : aesParamString};
+        NSDictionary *parameters = @{@"params" : aesParamString};
 
         NSLog(@"上传位置点参数：%@", parameters);
        
-       NSLog(@"接口%@请求【上传打印次数】参数：%@", url, params);
+       NSLog(@"接口%@请求【获取配载单轨迹】参数：%@", url, params);
        
        [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
            nil;
@@ -420,21 +424,35 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.bluetooth open:self.peripheral];
     [self.bluetooth flushRead];
+    
+    if(_isAviationLabel){
+        // 航班标签打印
+        [self print_aviationLabel];
+    }else{
+        // 普通打印
+        [self print_common];
+    }
+}
+
+
+// 打印按钮，普通打印
+- (void)print_common{
+    
 //    --------------------------------------------------------------------
 //    __weak __typeof(self)weakSelf = self;
        
-       NSString *url = [NSString stringWithFormat:@"%@%@", kApi, @"kc-transport/tmsApp/updatePrintCount"];
+       NSString *url = [NSString stringWithFormat:@"%@%@", kApi, @"updatePrintCount.do"];
 
        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
     
         NSString *params = [NSString stringWithFormat:@"{\"omsNo\":\"%@\"}", _dic[@"omsNo"]];
         NSString * aesParamString = [AESConvertHelper convertToAesWithParam:params];
-        NSDictionary *parameters = @{@"param" : aesParamString};
+        NSDictionary *parameters = @{@"params" : aesParamString};
     
         NSLog(@"上传位置点参数：%@", parameters);
        
-       NSLog(@"接口%@请求【上传打印次数】参数：%@", url, params);
+       NSLog(@"接口%@请求【获取配载单轨迹】参数：%@", url, params);
        
        [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
            nil;
@@ -553,6 +571,97 @@
     //            [self.bluetooth close];
     //        });
     //    });
+}
+
+// 打印按钮，航班标签打印
+- (void)print_aviationLabel{
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", kApi, @"updatePrintCount.do"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", nil];
+    
+    NSString *params = [NSString stringWithFormat:@"{\"omsNo\":\"%@\"}", _dic[@"omsNo"]];
+    NSString * aesParamString = [AESConvertHelper convertToAesWithParam:params];
+    NSDictionary *parameters = @{@"params" : aesParamString};
+    
+    NSLog(@"更新打印数量参数：%@", parameters);
+    
+    NSLog(@"接口%@请求【更新打印数量】参数：%@", url, params);
+    
+    [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        nil;
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功---%@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求失败---%@", error);
+    }];
+    
+    for(int i = 0; i < _arr.count; i++){
+        NSLog(@"%@", [NSString stringWithFormat:@"打印开始: %d", i]);
+        PrintimageAviationLabelViewController *vc = [[PrintimageAviationLabelViewController alloc] init];
+        vc.productNo_s = _arr[i][@"productNo"];
+        vc.dic = _dic;
+        NSLog(@"%@", _dic);
+        UIView *view = vc.view;
+        view = vc.container;
+//        [self presentViewController:vc animated:YES completion:nil];
+//        return;
+        UIImage *image3 = [Tools tg_makeImageWithView:view withSize:view.frame.size];
+        // 旋转180
+        image3 = [UIImage imageWithCGImage:image3.CGImage scale:image3.scale orientation:UIImageOrientationDown];
+        CGFloat scale = [UIScreen mainScreen].scale;
+        CGFloat p_w = 3 / scale * 260.0;
+        CGFloat p_h = 3 / scale * 396.0;
+        // 修改图片像素
+        image3 = [self imageResize:image3 andResizeTo:CGSizeMake(p_w, p_h)];
+        [self calulateImageFileSize:image3];
+        NSLog(@"%f, %f", image3.size.width, image3.size.height);
+        
+        // 打印预览
+        PreImageViewController *vck = [[PreImageViewController alloc] init];
+        vck.imagek = image3;
+        
+        [self.bluetooth DrawBigBitmap:image3 gotopaper:1];
+        [self.bluetooth print_status_detect];
+        
+        int status=[self.bluetooth print_status_get:12000];
+        NSLog(@"打印。。。");
+        if(status == 1){
+            NSLog(@"打印机缺纸");
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                
+                usleep(2000);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [Tools showAlert:self.view andTitle:@"打印机缺纸"];
+                });
+            });
+        }
+        if(status == 2){
+            NSLog(@"打印机开盖");
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                
+                usleep(2000);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [Tools showAlert:self.view andTitle:@"打印机开盖"];
+                });
+            });
+        }
+        if(status == 0){
+            NSLog(@"打印机正常");
+        }
+        if((status == -1 || status == 0 || status == 1 || status == 2) && i == _arr.count - 1){
+            NSLog(@"打印机蓝牙关闭");
+            [self.bluetooth close];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
+    }
 }
 
 

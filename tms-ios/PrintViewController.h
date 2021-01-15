@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 订单内容
 @property (strong, nonatomic) NSDictionary *dic;
 
+// 是否航班标签打印
+@property (assign, nonatomic) BOOL isAviationLabel;
+
 @end
 
 NS_ASSUME_NONNULL_END

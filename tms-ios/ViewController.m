@@ -819,6 +819,41 @@
                 });
             });
         }
+        else if([message.body[@"a"] isEqualToString:@"航空标签打印"]){
+            
+            // 打印数据
+            NSString* pArgument1_json = message.body[@"b"];
+            NSArray *arrayArgument = [Tools jsonToObject:pArgument1_json];
+            
+            // 判断数据里哪个是字典，哪个是数组
+            NSDictionary *dic = nil;
+            NSArray *array = nil;
+            id arr_0 = arrayArgument[0];
+            id arr_1 = arrayArgument[1];
+            if([arr_0 isKindOfClass:[NSArray class]]){
+                array = (NSArray *)arr_0;
+                NSLog(@"k11");
+            }else if([arr_1 isKindOfClass:[NSArray class]]){
+                array = (NSArray *)arr_1;
+                NSLog(@"k22");
+            }
+            if([arr_0 isKindOfClass:[NSDictionary class]]){
+                dic = (NSDictionary *)arr_0;
+                NSLog(@"k33");
+            }else if([arr_1 isKindOfClass:[NSDictionary class]]){
+                dic = (NSDictionary *)arr_1;
+                NSLog(@"k44");
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                PrintViewController *vc = [[PrintViewController alloc] init];
+                vc.isAviationLabel = YES;
+                vc.arr = array;
+                vc.dic = dic;
+                [self presentViewController:vc animated:YES completion:nil];
+                
+            });
+        }
     }
 }
 
